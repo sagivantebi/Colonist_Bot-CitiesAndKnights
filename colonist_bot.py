@@ -14,7 +14,7 @@ from selenium.webdriver.common import keys
 class MainBot():
     def __init__(self):
         #The chrome web driver path
-        self.driver = webdriver.Chrome('C:\\Users\\sagiv\\Desktop\\CandK_Colonist\\chromedriver')
+        self.driver = webdriver.Chrome('chromedriver')
         print("\n-------------------------------------------------------------")
         print("""\nＳａｇｉｖ Ａｎｔｅｂｉ － Ａｌｌ Ｒｉｇｈｔｓ Ｒｅｓｅｒｖｅｄ\n""")
         print("-------------------------------------------------------------\n")
@@ -34,7 +34,6 @@ class MainBot():
 
     def startSearch(self,url):
         self.driver.get(url)
-        action = ActionChains(self.driver)
         lobby_btn = self.driver.find_element("xpath", "/html/body/header/div[1]/div[1]/a[2]")
         sleep(2)
         lobby_btn.click()
@@ -42,9 +41,8 @@ class MainBot():
         lobby_btn.click()
         lobby_btn.click()
         lobby_btn.click()
-        sleep(2)
+        sleep(1)
         refresh_btn = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[2]/div[2]/div[2]/div/table[1]/thead/tr/th[4]/img")
-
         first_row_name = "None"
         sleep(1)
         while self.driver.current_url == url:
@@ -64,9 +62,10 @@ class MainBot():
                     msg = "I'm a 20/20 Karma Player - I have trouble entering my main account today, I know how to play :)"
                     self.write_msg(msg)
 
-                    #  the button to say READY
+                    # The READY button
                     submit_btn_ready = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[3]/div[2]/div[3]/div[1]/input")
                     submit_btn_ready.click()
+                    sleep(1)
 
                     msg = "For real lol"
                     self.write_msg(msg)
