@@ -9,5 +9,7 @@ To Run:
 Enjoy!
 
 
+- Make sure not to close the cmd that the python script runs on during the game
+
 ![cities-and-knights-image](https://user-images.githubusercontent.com/84729141/228018286-e3bd7b2f-ea2c-43f3-8da9-21eaceeabc0b.png)
 
