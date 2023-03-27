@@ -21,7 +21,6 @@ class MainBot():
     * Function Operation: start the download process
     """
     def startSearch(self,url):
-        # create action chain object
         self.driver.get(url)
         lobby_btn = self.driver.find_element("xpath", "/html/body/header/div[1]/div[1]/a[2]")
         sleep(2)
