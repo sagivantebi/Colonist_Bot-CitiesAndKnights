@@ -4,8 +4,6 @@ Creator - Sagiv Antebi
 from selenium import webdriver
 from time import sleep
 
-from selenium.webdriver import ActionChains, Keys
-from selenium.webdriver.common import keys
 
 """
 * class name: MainBot
@@ -13,7 +11,7 @@ from selenium.webdriver.common import keys
 """
 class MainBot():
     def __init__(self):
-        #The chrome web driver path
+        # Setting The Chrome web driver
         self.driver = webdriver.Chrome('chromedriver')
         print("\n-------------------------------------------------------------")
         print("""\nＳａｇｉｖ Ａｎｔｅｂｉ － Ａｌｌ Ｒｉｇｈｔｓ Ｒｅｓｅｒｖｅｄ\n""")
@@ -23,7 +21,7 @@ class MainBot():
     * Function name: startDownload
     * Function Operation: start the download process
     """
-    def write_msg(self,msg):
+    def write_msg(self, msg):
         input_box = self.driver.find_element("xpath", "/html/body/div[2]/div[5]/div[3]/div[3]/form/input")
         input_box.send_keys(msg)
         sleep(1)
@@ -32,7 +30,7 @@ class MainBot():
         snd_btn.click()
         snd_btn.click()
 
-    def startSearch(self,url):
+    def startSearch(self, url):
         self.driver.get(url)
         lobby_btn = self.driver.find_element("xpath", "/html/body/header/div[1]/div[1]/a[2]")
         sleep(2)
@@ -57,7 +55,6 @@ class MainBot():
                     first_row_btn.click()
                     first_row_btn.click()
                     sleep(1)
-
 
                     msg = "I'm a 20/20 Karma Player - I have trouble entering my main account today, I know how to play :)"
                     self.write_msg(msg)
