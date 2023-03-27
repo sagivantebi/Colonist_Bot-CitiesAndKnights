@@ -18,8 +18,9 @@ class MainBot():
         print("-------------------------------------------------------------\n")
 
     """
-    * Function name: startDownload
-    * Function Operation: start the download process
+    * Function name: write_msg
+    * Function Operation: writing msg into chat
+    * Param: msg - The message to send
     """
     def write_msg(self, msg):
         input_box = self.driver.find_element("xpath", "/html/body/div[2]/div[5]/div[3]/div[3]/form/input")
@@ -30,7 +31,12 @@ class MainBot():
         snd_btn.click()
         snd_btn.click()
 
-    def startSearch(self, url):
+    """
+    * Function name: start_search
+    * Function Operation: starting the search for a room
+    * Param: url - The colonist url
+    """
+    def start_search(self, url):
         self.driver.get(url)
         lobby_btn = self.driver.find_element("xpath", "/html/body/header/div[1]/div[1]/a[2]")
         sleep(2)
@@ -43,6 +49,7 @@ class MainBot():
         refresh_btn = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[2]/div[2]/div[2]/div/table[1]/thead/tr/th[4]/img")
         first_row_name = "None"
         sleep(1)
+        # Loop while the url is still on  the lobby
         while self.driver.current_url == url:
             sleep(1)
             try:
@@ -75,10 +82,9 @@ class MainBot():
 
 
 def main():
-    #creating copy of the bot
     bot = MainBot()
-    #start command to search
-    bot.startSearch('https://colonist.io/')
+    # Start command to search
+    bot.start_search('https://colonist.io/')
     print("""
 ██████╗░░█████╗░███╗░░██╗███████╗██╗
 ██╔══██╗██╔══██╗████╗░██║██╔════╝██║
