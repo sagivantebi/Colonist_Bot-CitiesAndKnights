@@ -23,6 +23,15 @@ class MainBot():
     * Function name: startDownload
     * Function Operation: start the download process
     """
+    def write_msg(self,msg):
+        input_box = self.driver.find_element("xpath", "/html/body/div[2]/div[5]/div[3]/div[3]/form/input")
+        input_box.send_keys(msg)
+        sleep(1)
+        snd_btn = self.driver.find_element("xpath", "/html/body/div[2]/div[5]/div[3]/div[3]/form/button")
+        snd_btn.click()
+        snd_btn.click()
+        snd_btn.click()
+
     def startSearch(self,url):
         self.driver.get(url)
         action = ActionChains(self.driver)
@@ -49,26 +58,19 @@ class MainBot():
                     first_row_btn = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[2]/div[2]/div[2]/div/table[1]/tbody/tr[1]")
                     first_row_btn.click()
                     first_row_btn.click()
-                    sleep(2)
-                    input_box = self.driver.find_element("xpath", "/html/body/div[2]/div[5]/div[3]/div[3]/form/input")
-                    msg = "I'm a 20/20 Karma Player - I have trouble entering my main account today, I know how to play :)"
-                    input_box.send_keys(msg)
                     sleep(1)
-                    snd_btn = self.driver.find_element("xpath", "/html/body/div[2]/div[5]/div[3]/div[3]/form/button")
-                    snd_btn.click()
-                    snd_btn.click()
-                    snd_btn.click()
 
-                    submit_btn = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[3]/div[2]/div[3]/div[1]/input")
-                    submit_btn.click()
+
+                    msg = "I'm a 20/20 Karma Player - I have trouble entering my main account today, I know how to play :)"
+                    self.write_msg(msg)
+
+                    #  the button to say READY
+                    submit_btn_ready = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[3]/div[2]/div[3]/div[1]/input")
+                    submit_btn_ready.click()
 
                     msg = "For real lol"
-                    input_box.send_keys(msg)
-                    sleep(1)
-                    snd_btn = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[3]/div[3]/form/button")
-                    snd_btn.click()
-                    snd_btn.click()
-                    snd_btn.click()
+                    self.write_msg(msg)
+
                     sleep(8)
             except Exception:
                 first_row_name = "None"
