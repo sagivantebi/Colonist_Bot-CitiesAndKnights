@@ -4,6 +4,9 @@ Creator - Sagiv Antebi
 from selenium import webdriver
 from time import sleep
 
+from selenium.webdriver import ActionChains, Keys
+from selenium.webdriver.common import keys
+
 """
 * class name: MainBot
 * class Operation: main class of the bot
@@ -22,6 +25,7 @@ class MainBot():
     """
     def startSearch(self,url):
         self.driver.get(url)
+        action = ActionChains(self.driver)
         lobby_btn = self.driver.find_element("xpath", "/html/body/header/div[1]/div[1]/a[2]")
         sleep(2)
         lobby_btn.click()
@@ -48,6 +52,11 @@ class MainBot():
                     sleep(2)
                     submit_btn = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[3]/div[2]/div[3]/div[1]/input")
                     submit_btn.click()
+                    input_box = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[3]/div[3]/form/input")
+                    msg = "I'm a 20/20 Karma Player - I have trouble entering my main account today, I know how to play :)"
+                    input_box.send_keys(msg)
+                    snd_btn = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[3]/div[3]/form/button")
+                    snd_btn.click()
                     sleep(8)
             except Exception:
                 first_row_name = "None"
