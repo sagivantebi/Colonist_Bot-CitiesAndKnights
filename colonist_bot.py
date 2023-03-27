@@ -50,12 +50,24 @@ class MainBot():
                     first_row_btn.click()
                     first_row_btn.click()
                     sleep(2)
-                    submit_btn = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[3]/div[2]/div[3]/div[1]/input")
-                    submit_btn.click()
-                    input_box = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[3]/div[3]/form/input")
+                    input_box = self.driver.find_element("xpath", "/html/body/div[2]/div[5]/div[3]/div[3]/form/input")
                     msg = "I'm a 20/20 Karma Player - I have trouble entering my main account today, I know how to play :)"
                     input_box.send_keys(msg)
+                    sleep(1)
+                    snd_btn = self.driver.find_element("xpath", "/html/body/div[2]/div[5]/div[3]/div[3]/form/button")
+                    snd_btn.click()
+                    snd_btn.click()
+                    snd_btn.click()
+
+                    submit_btn = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[3]/div[2]/div[3]/div[1]/input")
+                    submit_btn.click()
+
+                    msg = "For real lol"
+                    input_box.send_keys(msg)
+                    sleep(1)
                     snd_btn = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[3]/div[3]/form/button")
+                    snd_btn.click()
+                    snd_btn.click()
                     snd_btn.click()
                     sleep(8)
             except Exception:
