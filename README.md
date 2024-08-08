@@ -1,6 +1,7 @@
 To Run:
 
-* Install 'chromedriver' - https://chromedriver.chromium.org/ (make sure you download the same version you have on your pc).
+* Check your Chrome version (Settings -> About Chrome -> Version)
+* Install 'chromedriver' - [https://chromedriver.chromium.org/](https://googlechromelabs.github.io/chrome-for-testing/) (make sure you download the same version you have on your pc).
 * Place 'chromedriver' in this folder.
 * Open cmd and install selenium (just write: "pip install selenium").
 * Run the bot by Open cmd and write "python3 colonist_bot.py".
