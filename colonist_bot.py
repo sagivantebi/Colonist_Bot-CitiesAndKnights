@@ -8,20 +8,53 @@ class MainBot():
     def __init__(self):
         # Setting the Chrome web driver with correct options
         chrome_options = Options()
-        service = Service('chromedriver.exe')  # Replace with the actual path to chromedriver
+        # chrome_options.add_argument("--disable-extensions")
+        # chrome_options.add_argument("--disable-gpu")
+        # chrome_options.add_argument("--no-sandbox") 
+        # chrome_options.add_argument("--headless")  # Uncomment this line if you want to run Chrome in headless mode
+
+        # Replace 'path/to/chromedriver' with the actual path to the ChromeDriver executable
+        service = Service('chromedriver.exe')
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
         print("\n-------------------------------------------------------------")
         print("""\nＳａｇｉｖ Ａｎｔｅｂｉ － Ａｌｌ Ｒｉｇｈｔｓ Ｒｅｓｅｒｖｅｄ\n""")
         print("-------------------------------------------------------------\n")
-
+    
     def write_msg(self, msg):
-        input_box = self.driver.find_element(By.XPATH, "/html/body/div[2]/div[5]/div[3]/div[3]/form/input")
-        input_box.send_keys(msg)
-        sleep(1)
-        snd_btn = self.driver.find_element(By.XPATH, "/html/body/div[2]/div[5]/div[3]/div[3]/form/button")
-        snd_btn.click()
-        snd_btn.click()
-        snd_btn.click()
+        try:
+            print("Finding input box...")
+            input_box = self.driver.find_element(By.XPATH, '//*[@id="lobby_chat_input"]')
+            print("Input box found. Sending message...")
+            input_box.send_keys(msg)
+            sleep(1)
+
+            print("Finding send button...")
+            snd_btn = self.driver.find_element(By.XPATH, '//*[@id="lobby_chat_button"]')
+            print("Send button found. Clicking send button...")
+            snd_btn.click()
+            print("Message sent.")
+            sleep(1)
+        except Exception as e:
+            print(f"An error occurred in write_msg: {e}")
+
+    def ensure_ready_button_pushed(self):
+            try:
+                ready_btn = self.driver.find_element(By.ID, 'room_center_checkbox_ready')
+                if not ready_btn.is_selected():
+                    print("Clicking the ready button...")
+                    ready_btn.click()
+                else:
+                    print("Ready button is already clicked.")
+
+                while True:
+                    sleep(1)
+                    if not ready_btn.is_selected():
+                        print("Ready button is not selected. Clicking again...")
+                        ready_btn.click()
+                    else:
+                        print("Ready button is still selected.")
+            except Exception as e:
+                print(f"An error occurred while ensuring the ready button is pushed: {e}")
 
     def start_search(self, url):
         self.driver.get(url)
@@ -33,35 +66,29 @@ class MainBot():
         lobby_btn.click()
         lobby_btn.click()
         sleep(1)
-        # refresh_btn = self.driver.find_element(By.XPATH,"/html/body/div[2]/div[5]/div[2]/div[2]/div[2]/div/table[1]/thead/tr/th[4]/img")
-        first_row_name = "None"
+        # refresh_btn = self.driver.find_element(By.XPATH, "/html/body/div[2]/div[5]/div[2]/div[2]/div[2]/div/table[1]/thead/tr/th[4]/img")
         sleep(1)
+        loby_url = self.driver.current_url
         while self.driver.current_url == url:
             sleep(1)
             try:
-                # refresh_btn.click()
-                # refresh_btn.click()
-                sleep(1)
-                first_row_name = self.driver.find_element(By.XPATH,"/html/body/div[2]/div[5]/div[2]/div[2]/div[2]/div/table[1]/tbody/tr[1]/td[1]").text
-                if "Cities & Knights" in first_row_name:
-                    first_row_btn = self.driver.find_element(By.XPATH,"/html/body/div[2]/div[5]/div[2]/div[2]/div[2]/div/table[1]/tbody/tr[1]")
-                    first_row_btn.click()
-                    first_row_btn.click()
-                    sleep(1)
+                
+                rows = self.driver.find_elements(By.XPATH, '//*[@id="lobby_center_rooms_table_body"]/tr')
+                for row in rows:
+                    row_name = row.find_element(By.XPATH, 'td[1]').text
 
-                    msg = "I'm a 20/20 Karma Player - I have trouble entering my main account today, I know how to play :)"
-                    self.write_msg(msg)
 
-                    submit_btn_ready = self.driver.find_element(By.XPATH,"/html/body/div[2]/div[5]/div[3]/div[2]/div[3]/div[1]/input")
-                    submit_btn_ready.click()
-                    sleep(1)
-
-                    msg = "For real lol"
-                    self.write_msg(msg)
-
-                    sleep(8)
-            except Exception:
-                first_row_name = "None"
+                    if "Cities & Knights" in row_name:
+                        row.click()
+                        sleep(1)
+                        self.ensure_ready_button_pushed()
+                        sleep(8)
+                        if self.driver.current_url == loby_url:
+                            continue
+                        else:
+                            return
+            except Exception as e:
+                print(f"An error occurred: {e}")
 
 def main():
     bot = MainBot()
